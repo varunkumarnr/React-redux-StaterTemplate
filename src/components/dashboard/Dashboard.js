@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { dashboard } from "../../reducers/dashboard";
 import { connect } from "react-redux";
 import { setAlert } from "../../reducers/alert";
-import { Navbar } from "../layout/Navbar";
+import Navbar from "../layout/Navbar";
 
 const Dashboard = ({ dashboard, message, setAlert }) => {
   const email = localStorage.getItem("email");
