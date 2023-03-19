@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar } from "../layout/Navbar";
+import Navbar from "../layout/Navbar";
 import LoginContainer from "./LoginContainer";
 import "./Styles/Auth.css";
 import TokenContainer from "./TokenContainer";
