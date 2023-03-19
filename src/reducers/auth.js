@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+const URL = process.env.REACT_APP_BACKEND_URL;
 export const login = createAsyncThunk("auth/login", async (formData) => {
   const config = {
     headers: {
@@ -7,11 +8,8 @@ export const login = createAsyncThunk("auth/login", async (formData) => {
     },
   };
   const body = JSON.stringify(formData);
-  const response = await axios.post(
-    "http://localhost:8000/auth/email/",
-    body,
-    config
-  );
+  console.log(URL);
+  const response = await axios.post(URL + "auth/email/", body, config);
   console.log(response.data);
   return response.data;
 });
@@ -27,11 +25,8 @@ export const tokenValidation = createAsyncThunk(
       };
       const body = JSON.stringify(formData);
       console.log(body);
-      const response = await axios.post(
-        "http://localhost:8000/auth/token/",
-        body,
-        config
-      );
+      const response = await axios.post(URL + "auth/token/", body, config);
+      console.log(process.env.BACKEND_URL);
       console.log(response.data);
       return response.data;
     } catch (err) {
@@ -80,7 +75,6 @@ const authSlice = createSlice({
       })
       .addCase(tokenValidation.fulfilled, (state, action) => {
         localStorage.setItem("token", action.payload.token);
-        console.log(action.payload.token);
         state.token = action.payload.token;
         state.isAuthenticated = true;
         state.loading = false;

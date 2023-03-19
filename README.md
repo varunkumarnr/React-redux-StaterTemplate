@@ -13,6 +13,16 @@ npm install
 npm start
 ```
 
+## Tech Stack
+
+**Client:** React, Redux, React Router, Axios
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`REACT_APP_BACKEND_URL`
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
