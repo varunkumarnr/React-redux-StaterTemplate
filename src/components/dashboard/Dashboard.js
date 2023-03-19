@@ -7,10 +7,16 @@ import { Navbar } from "../layout/Navbar";
 
 const Dashboard = ({ dashboard, message, setAlert }) => {
   const email = localStorage.getItem("email");
+  const setMessage = async () => {
+    await dashboard();
+    console.log(process.env.REACT_APP_BACKEND_URL);
+  };
   useEffect(() => {
-    dashboard();
+    setMessage();
   }, [message]);
-  return (
+  return message == null ? (
+    <p>reload if you can see this message</p>
+  ) : (
     <div>
       <Navbar />
       Welcome!

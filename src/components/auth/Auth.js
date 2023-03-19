@@ -11,7 +11,7 @@ const Auth = () => {
     setToken(token);
   }, [token]);
   useEffect(() => {
-    if (token) {
+    if (token && token !== null) {
       navigate("/dashboard");
     }
   }, [token, navigate]);

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { setAlert } from "../../reducers/alert";
 import { tokenValidation } from "../../reducers/auth";
 import Alert from "../layout/Alert";
+import dashboard from "../../reducers/dashboard";
 const TokenContainer = ({ setAlert, tokenValidation, isAuthenticated }) => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
@@ -16,7 +17,7 @@ const TokenContainer = ({ setAlert, tokenValidation, isAuthenticated }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (token.length !== 6 || isNaN(token)) {
       setAlert({
@@ -25,10 +26,24 @@ const TokenContainer = ({ setAlert, tokenValidation, isAuthenticated }) => {
         timeout: 4000,
       });
     } else {
-      tokenValidation({ email, token });
-      navigate("/dashboard");
+      await tokenValidation({ email, token });
+      if (isAuthenticated) {
+        navigate("dashboard");
+      } else {
+        setAlert({
+          msg: "Enter a valid Token",
+          alertType: "danger",
+          timeout: 4000,
+        });
+      }
     }
   };
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className="login-container">
       <form className="login-form bounceInDown" onSubmit={(e) => onSubmit(e)}>
@@ -64,6 +79,7 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, tokenValidation })(
-  TokenContainer
-);
+export default connect(mapStateToProps, {
+  setAlert,
+  tokenValidation,
+})(TokenContainer);
