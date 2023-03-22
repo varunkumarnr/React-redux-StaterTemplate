@@ -51,6 +51,16 @@ const authSlice = createSlice({
       localStorage.setItem("email", action.payload);
       state.userEmail = action.payload;
     },
+
+    logout: (state, action) => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      state.token = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.user = null;
+      state.userEmail = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,5 +99,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUserEmail } = authSlice.actions;
+export const { setUserEmail, logout } = authSlice.actions;
 export default authSlice.reducer;
