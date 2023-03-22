@@ -54,7 +54,7 @@ const LoginContainer = () => {
     <div className="login-container">
       <form className="login-form bounceInDown" onSubmit={(e) => onSubmit(e)}>
         <div className="login-form-inner">
-          <h2>Welcome Back!</h2>
+          <h2>Welcome!</h2>
           <p className="login-subtitle">Enter your Sapient email</p>
           <Alert />
           <div className="form-group">
@@ -68,8 +68,8 @@ const LoginContainer = () => {
           </div>
           <input type="submit" className="authForm-btn" value="Login"></input>
           <p className="Auth-Redirect">
-            Don't have an account?{" "}
-            <Link to="/token">Check how to make one</Link>
+            Read before creating account{" "}
+            <Link to="/login">Terms and Conditions</Link>
           </p>
         </div>
       </form>

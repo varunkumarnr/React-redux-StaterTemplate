@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./Styles/Navbar.css";
 import "./Scripts/Navbar";
-const Navbar = ({ auth: { isAuthenticated } }) => {
+import { Link } from "react-router-dom";
+import { logout } from "../../reducers/auth";
+const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   const authLinks = (
     <ul>
       <li>
@@ -17,9 +19,9 @@ const Navbar = ({ auth: { isAuthenticated } }) => {
         </a>
       </li>
       <li>
-        <a className="h" id="ContactNav" href="#contact">
+        <Link onClick={logout} className="h" id="ContactNav" href="#contact">
           Logout
-        </a>
+        </Link>
       </li>
     </ul>
   );
@@ -55,9 +57,10 @@ const Navbar = ({ auth: { isAuthenticated } }) => {
   );
 };
 Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);
